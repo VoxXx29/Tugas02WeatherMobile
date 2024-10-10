@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Tugas A02. Aplikasi Pengecekan Cuaca Berbasis Ionic</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="weather-container">
+    <ion-input
+      [(ngModel)]="city"
+      placeholder="Masukkan nama kota"
+      clearInput
+      class="city-input"
+    ></ion-input>
+    <ion-button expand="full" (click)="getWeather()">Cari</ion-button>
+
+    <ion-card *ngIf="weather">
+      <img [src]="weatherIcon" alt="Ikon Cuaca" />
+      <ion-card-header>
+        <ion-card-title>{{ weather?.main.temp }}°C di {{ city }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="weather-details">
+          <p class="description">{{ weather?.weather[0].description | titlecase }}</p>
+          <p class="humidity">Kelembaban: {{ weather?.main.humidity }}%</p>
+          <p class="forecast-title">Perkiraan Cuaca (1-5 Jam ke Depan):</p>
+          <div class="forecast-container">
+            <div class="forecast" *ngFor="let forecast of hourlyForecast">
+              <p>{{ forecast.time }}: {{ forecast.temp }}°C</p>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
